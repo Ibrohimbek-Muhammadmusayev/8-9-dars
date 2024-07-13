@@ -1,8 +1,7 @@
 import Getproducts from "@/companents/getproducts";
 import { Button } from "antd";
 import Image from "next/image";
-import Link from "next/link";
-
+// import Link from "next/link";
 
 export default function Home() {
   return (
@@ -70,25 +69,7 @@ export default function Home() {
           <h1 className="text-[48px] font-bold">NEW ARRIVALS</h1>
         </div>
         {/* card wrapper */}
-        <div className="">
-          {/* <Link href={'/'}>
-            <div className="flex flex-col gap-[8px]">
-              <Image
-                src='/Frame1.png'
-                alt="images"
-                width={295}
-                height={298}
-                />
-              <h2>T-SHIRT WITH TAPE DETAILS</h2>
-              <Image
-                src='/rating.svg'
-                alt="images"
-                width={150}
-                height={19}
-                />
-              <h1>$120</h1>
-            </div>
-          </Link> */}
+        <div className="flex flex-wrap justify-center gap-[20px]">
           <Getproducts/>
         </div>
       </section>

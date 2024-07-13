@@ -40,7 +40,7 @@ export default function Navbar() {
                     />
                 </div>
             </div>
-            </div>
+        </div>
         <nav className="max-w-[1240px] sm:px-[10px] md:px-[10px] xl:px-[10px] h-[96px] mx-auto flex justify-between items-center">
             <Button className="sm:flex md:flex lg:hidden border-none h-[30px]">
                 <Image
