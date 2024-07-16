@@ -50,12 +50,14 @@ export default function Navbar() {
                     height={34}
                 />    
             </Button>
-            <Image
-                src="SHOP-logo.svg"
-                alt="logo"
-                width={160}
-                height={22}
-            />
+            <Link href={'/'}>
+                <Image
+                    src="SHOP-logo.svg"
+                    alt="logo"
+                    width={160}
+                    height={22}
+                />
+            </Link>
             <ul className="flex sm:hidden lg:flex gap-[24px]">
                 <li>
                     <Dropdown className="border-none p-0 text-[16px] font-normal" menu={menuProps}>

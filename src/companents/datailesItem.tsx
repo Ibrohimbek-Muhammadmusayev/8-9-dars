@@ -1,0 +1,98 @@
+'use client'
+
+import { Button } from "antd"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+
+type Datatype = {
+    name: string
+    price: number
+    description: string
+    images: string[],
+    category: string,
+    color: string,
+    gender: string,
+}
+
+export default function DatilesItem(data: any) {
+    const [getdata, setGetdata] = useState<Datatype>(data?.data);
+    useEffect(() => {
+        // setGetdata(data.data)
+        console.log(getdata);
+        
+    }, [])
+    
+    
+    return (
+        <>
+            <div className="w-full">
+                <div className="flex gap-[40px]">
+                    <div className="flex gap-[14px]">
+                        <div className="flex flex-col gap-[14px]">
+                            <Image
+                                src={getdata?.images[0]}
+                                alt="Picture of the author"
+                                width={152}
+                                height={167}
+                            />
+                            <Image
+                                src={getdata?.images[0]}
+                                alt="Picture of the author"
+                                width={152}
+                                height={167}
+                            />    
+                            <Image
+                                src={getdata?.images[0]}
+                                alt="Picture of the author"
+                                width={152}
+                                height={167}
+                            />
+                        </div>
+                        <Image
+                            src={getdata?.images[0]}
+                            alt="Picture of the author"
+                            width={444}
+                            height={500}
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <h1 className="text-[40px] font-bold">{getdata?.name}</h1>
+                        <div className="flex gap-[40px] items-center">
+                            <div className="flex gap-[14px]">
+                                <Image
+                                    src="/rating.svg"
+                                    alt="images"
+                                    width={140}
+                                    height={25}
+                                />
+                                <p>4.5/5</p>
+                            </div>
+                            <h1 className="text-[40px] font-bold">${getdata?.price}</h1>
+                        </div>
+                        <p className="mt-[24px]">Select Colors</p>
+                        <div className="flex gap-[16px] mt-[16px]">
+                            <button className="w-[45px] h-[45px] rounded-full" style={{backgroundColor: `${getdata?.color}`}}></button>
+                            {/* {/* <button className="w-[45px] h-[45px] rounded-full bg-[#298d9d]"></button> */}
+                            <button className="w-[45px] h-[45px] rounded-full bg-[#000000]"></button>
+                        </div>
+                        <p className="mt-[24px]">Choose Size</p>
+                        <div className="flex mt-[16px] gap-[12px]">
+                            <Button>Small</Button>
+                            <Button>Medium</Button>
+                            <Button>Large</Button>
+                            <Button>X-Large</Button>
+                        </div>
+                        <div className="mt-[40px] flex gap-[20px] items-center ">
+                            <div className="rounded-[62px] flex w-[170px] justify-center items-center h-[52px] bg-[#F0F0F0] gap-[15px]">
+                            <Button className="border-none bg-[#F0F0F0] text-[30px]">-</Button>
+                            <p>1</p>
+                            <Button className="border-none bg-[#F0F0F0] text-[30px]">+</Button>
+                            </div>
+                            <Button className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}

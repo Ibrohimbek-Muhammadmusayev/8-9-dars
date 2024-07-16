@@ -16,6 +16,7 @@ type data = {
     category: string,
     gender:string,
     color: string,
+    key: string,
 }
 
 export default function  Getproducts() {
@@ -24,23 +25,25 @@ export default function  Getproducts() {
         const getDatas = ()=>{
             const querySnapshot = getDocs(collection(db, "products"))
             .then((querySnapshot) => {
-                const datas = querySnapshot.docs.map((doc) => doc.data());
-                // console.log(datas)
+                const datas = querySnapshot.docs.map((doc) => ({
+                    key: doc.id,
+                    ...doc.data()
+                }))
                 setGetdata(datas as []);
             })
         }
         getDatas()
         
     }, [])
-    
+        
     return (
         <>
-            {getdata?.map((item : {data : data}, index: number) => (
-                <div key={index} className="rounded-[12px] w-[290px] overflow-hidden h-[530px] bg-[#F0F0F0] text-center">
-                    <Link href={'/'}>
+            {getdata?.map((item : data) => (
+                <div key={item.key} className="rounded-[12px] w-[290px] overflow-hidden h-[530px] bg-[#F0F0F0] text-center">
+                    <Link href={item.key}>
                         <div className="flex flex-col gap-[8px]">
                             <Image
-                                src={item.data.images[0]}
+                                src={item.images[0]}
                                 alt="images"
                                 width={295}
                                 height={300}
@@ -55,10 +58,10 @@ export default function  Getproducts() {
                                     />
                                     <p>4.5</p>
                                 </div>
-                                <h3 className="font-medium text-[16px]">${item.data.price}</h3>
+                                <h3 className="font-medium text-[16px]">${item.price}</h3>
                             </div>
-                            <h1>{item.data.name}</h1>
-                            <p>{item.data.description}</p>
+                            <h1>{item.name}</h1>
+                            <p>{item.description}</p>
                         </div>
                     </Link>
                 </div>

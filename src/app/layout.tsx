@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/companents/navbar";
-import Footer from "@/companents/footer";
+import Layout from "@/companents/layout";
+import Login from "./login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +16,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const path:string = ''
   return (
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col bg-white">
-          <Navbar/>
-          {children}
-          <Footer/>
+          {path === '/login' || path === '/register' ? 
+          (
+            <Login/>
+          )
+          :
+          <Layout>{children}</Layout>}
         </div>
       </body>
     </html>
