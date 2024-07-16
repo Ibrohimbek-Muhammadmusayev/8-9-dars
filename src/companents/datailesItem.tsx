@@ -16,12 +16,14 @@ type Datatype = {
 
 export default function DatilesItem(data: any) {
     const [getdata, setGetdata] = useState<Datatype>(data?.data);
+    const [count, setCount] = useState(1);
     useEffect(() => {
         // setGetdata(data.data)
         console.log(getdata);
         
     }, [])
     
+    console.log(count);
     
     return (
         <>
@@ -84,9 +86,9 @@ export default function DatilesItem(data: any) {
                         </div>
                         <div className="mt-[40px] flex gap-[20px] items-center ">
                             <div className="rounded-[62px] flex w-[170px] justify-center items-center h-[52px] bg-[#F0F0F0] gap-[15px]">
-                            <Button className="border-none bg-[#F0F0F0] text-[30px]">-</Button>
-                            <p>1</p>
-                            <Button className="border-none bg-[#F0F0F0] text-[30px]">+</Button>
+                            <Button disabled={count === 1} onClick={() => setCount(count - 1)} className="border-none bg-[#F0F0F0] text-[30px]">-</Button>
+                            <p>{count}</p>
+                            <Button disabled={count === 10} onClick={() => setCount(count + 1)} className="border-none bg-[#F0F0F0] text-[30px]">+</Button>
                             </div>
                             <Button className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
                         </div>
