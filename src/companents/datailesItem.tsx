@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "antd"
+import { Button, Space, notification } from "antd"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
@@ -14,6 +14,8 @@ type Datatype = {
     gender: string,
 }
 
+type NotificationType = 'success';
+
 export default function DatilesItem(data: any) {
     const [getdata, setGetdata] = useState<Datatype>(data?.data);
     const [count, setCount] = useState(1);
@@ -22,8 +24,16 @@ export default function DatilesItem(data: any) {
         console.log(getdata);
         
     }, [])
-    
-    console.log(count);
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotificationWithIcon = (type: NotificationType) => {
+        api[type]({
+        message: 'Maxsulot muvaffaqiyatli qoshildi 👋',
+        description:
+            'Maxsulot muvaffaqiyatli qoshildi',
+        });
+    };
     
     return (
         <>
@@ -90,7 +100,10 @@ export default function DatilesItem(data: any) {
                             <p>{count}</p>
                             <Button disabled={count === 10} onClick={() => setCount(count + 1)} className="border-none bg-[#F0F0F0] text-[30px]">+</Button>
                             </div>
-                            <Button className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
+                            {contextHolder}
+                            <Space>                                
+                                <Button onClick={() => openNotificationWithIcon('success')} className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
+                            </Space>
                         </div>
                     </div>
                 </div>
