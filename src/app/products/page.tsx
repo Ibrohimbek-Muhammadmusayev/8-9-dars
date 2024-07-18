@@ -90,7 +90,7 @@ export default function Products(){
                     <div className="w-[295px] h-[100%]">
                         <div className="w-[295px] h-[100%] rounded-[20px] border">
                             <div className="w-[295px] h-[66px] flex justify-center items-center">
-                                <input onChange={(e)=> {setSearchtext(e.target.value)}} className="outline-none w-[210px] text-black" type="text" placeholder="Filter"/>
+                                <input onChange={(e)=> {setSearchtext(e.target.value)}} className="outline-none w-[210px] text-black" type="text" placeholder="Search Filter"/>
                                 <Image
                                     src="/filter.svg"
                                     alt="search"

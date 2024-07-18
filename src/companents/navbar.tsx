@@ -81,9 +81,9 @@ export default function Navbar() {
                         </Button>
                     </Dropdown>
                 </li>
-                <li className="text-[16px] font-normal"><a href="#">On Sale</a></li>
-                <li className="text-[16px] font-normal"><a href="#">New Arrivals</a></li>
-                <li className="text-[16px] font-normal"><a href="#">Brands</a></li>
+                <li className="text-[16px] font-normal"><Link href="/products">Products</Link></li>
+                <li className="text-[16px] font-normal"><Link href="#">New Arrivals</Link></li>
+                <li className="text-[16px] font-normal"><Link href="#">Brands</Link></li>
             </ul>
             <div className="w-[577px] sm:hidden lg:w-[430px] md:flex rounded-[62px] flex gap-[12px] pl-[18px] bg-[#F0F0F0] h-[48px]">
                 <Image
