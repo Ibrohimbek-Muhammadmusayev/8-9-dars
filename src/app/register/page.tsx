@@ -1,22 +1,22 @@
 'use client'
 import { auth } from "@/firebase";
 import { Button, Card, Form, Input } from "antd";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { notification } from 'antd';
 import { useRouter } from "next/navigation";
-
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
-export default function Login() {
+export default function Register() {
+
     const [api, contextHolder] = notification.useNotification();
 
     const userdata = {
         email: '',
-        password: ''
+        password: '',
+        username: '',
+        photourl: '',
     }
-
-    const router = useRouter();
 
     const openNotificationWithIcon = (type: NotificationType) => {
         api[type]({
@@ -24,17 +24,19 @@ export default function Login() {
         });
     };
 
+    const router = useRouter();
+
     const onFinish  = async () => {
-        await signInWithEmailAndPassword(auth, userdata.email, userdata.password)
+        await createUserWithEmailAndPassword(auth, userdata.email, userdata.password)
         .then((userCredential) => {
             const user = userCredential.user;
-            window.localStorage.setItem('token', JSON.stringify(user))
-            openNotificationWithIcon('success');
+            console.log(user);
+            window.localStorage.setItem('token', `${user}`)
+            openNotificationWithIcon('success')
             router.replace('/');
-            
         })
         .catch((error) => {
-            // const errorCode = error.code;
+            const errorCode = error.code;
             const errorMessage = error.message;
             const openNotificationWitherror = (type: NotificationType) => {
                 api[type]({
@@ -49,7 +51,7 @@ export default function Login() {
         <>
             <div className="w-full">
                 <div className="p-[20px] max-w-[400px] mx-auto">
-                    <Card className="bg-slate-200" title="Login">
+                    <Card className="bg-slate-200" title="Signin">
                         <Form 
                             onFinish={onFinish}
                         >
@@ -59,9 +61,15 @@ export default function Login() {
                             <Form.Item name={'Password'}>
                                 <Input onChange={(e)=> userdata.password = e.target.value} type="password" required placeholder="Password"/>
                             </Form.Item>
+                            <Form.Item name={'UserName'}>
+                                <Input onChange={(e)=> userdata.username = e.target.value} type="text" required placeholder="UserName"/>
+                            </Form.Item>
+                            <Form.Item name={'Photourl'}>
+                                <Input onChange={(e)=> userdata.photourl = e.target.value} type="text" placeholder="Photo Url"/>
+                            </Form.Item>
                             <div className="flex gap-[20px] items-center justify-center">
-                                <p className="text-[20px] text-slate-400">create account</p>
-                                <Link className="text-blue-500 text-[18px]" href={'/register'}>register</Link>
+                                <p className="text-[20px] text-slate-400">Login account</p>
+                                <Link className="text-blue-500 text-[18px]" href={'/login'}>Login</Link>
                             </div>
                             {contextHolder}
                             <Button htmlType="submit" className="w-[300px] mx-auto h-[42px] items-center mt-[20px] bg-white border text-black text-[20px] rounded-[62px]">Login</Button>

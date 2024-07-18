@@ -1,8 +1,10 @@
 'use client'
-
 import { Button, Space, notification } from "antd"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { doc, setDoc } from "firebase/firestore"; 
+import { db } from "@/firebase";
+import Link from "next/link";
 
 type Datatype = {
     name: string
@@ -17,13 +19,24 @@ type Datatype = {
 type NotificationType = 'success';
 
 export default function DatilesItem(data: any) {
-    const [getdata, setGetdata] = useState<Datatype>(data?.data);
+    const [usertoken] = useState(JSON.parse(window.localStorage.getItem('token') as string));
+    const [getdata] = useState<Datatype>(data?.data);
+    const [usercartdata, setUsercartdata] = useState({})
     const [count, setCount] = useState(1);
-    useEffect(() => {
-        // setGetdata(data.data)
-        console.log(getdata);
-        
-    }, [])
+    
+    useEffect(()=>{
+        setUsercartdata({
+            ...getdata,
+            count: count,
+        })
+    }, [count, getdata])
+    const addlocaldata = ()=> {
+        setDoc(doc(db, "cards", `${usertoken.uid}`), {
+            // ...usercartdata,
+            usercartdata
+        });
+        openNotificationWithIcon('success')
+    }
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -81,6 +94,7 @@ export default function DatilesItem(data: any) {
                             </div>
                             <h1 className="text-[40px] font-bold">${getdata?.price}</h1>
                         </div>
+                        <h1>categories: <span className="text-[20px]">{getdata.category}</span></h1>
                         <p className="mt-[24px]">Select Colors</p>
                         <div className="flex gap-[16px] mt-[16px]">
                             <button className="w-[45px] h-[45px] rounded-full" style={{backgroundColor: `${getdata?.color}`}}></button>
@@ -101,9 +115,17 @@ export default function DatilesItem(data: any) {
                             <Button disabled={count === 10} onClick={() => setCount(count + 1)} className="border-none bg-[#F0F0F0] text-[30px]">+</Button>
                             </div>
                             {contextHolder}
-                            <Space>                                
-                                <Button onClick={() => openNotificationWithIcon('success')} className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
-                            </Space>
+                            {!usertoken ? (
+                                <Space>
+                                    <Link href={'/register'}>
+                                        <Button className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Register</Button>
+                                    </Link>
+                                </Space>
+                            ) : (
+                                <Space>
+                                    <Button onClick={() => addlocaldata()} className="w-[210px] hover:bg-slate-700 h-[52px] bg-black text-white rounded-[62px]">Add to Cart</Button>
+                                </Space>
+                            )}
                         </div>
                     </div>
                 </div>

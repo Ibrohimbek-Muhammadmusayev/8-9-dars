@@ -23,7 +23,7 @@ export default function  Getproducts() {
     const [getdata, setGetdata] = useState<[] | undefined>([]);
     useEffect(() => {
         const getDatas = ()=>{
-            const querySnapshot = getDocs(collection(db, "products"))
+            getDocs(collection(db, "products"))
             .then((querySnapshot) => {
                 const datas = querySnapshot.docs.map((doc) => ({
                     key: doc.id,

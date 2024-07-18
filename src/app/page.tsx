@@ -1,18 +1,24 @@
+import Footer from "@/companents/footer";
 import Getproducts from "@/companents/getproducts";
+import Navbar from "@/companents/navbar";
 import { Button } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 // import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="">
+      <Navbar/>
       <header className="w-full bg-[#F2F0F1]">
         <div className="max-w-[1240px] mx-auto">
           <div className="flex justify-between mt-[60px]">
             <div className="mt-[50px]">
               <h1 className="font-bold text-[64px] text-black tracking-[-3px] leading-[68px]">FIND CLOTHES <br /> THAT MATCHES <br /> YOUR STYLE</h1>
               <p className="text-[#00000061] mt-[32px]">Browse through our diverse range of meticulously crafted garments, designed <br /> to bring out your individuality and cater to your sense of style.</p>
-              <Button className="mt-[32px] border-none bg-[#000000] text-white w-[210px] h-[52px] rounded-[62px]">Shop Now</Button>
+              <Link href={'/products'}>
+                <Button className="mt-[32px] border-none bg-[#000000] text-white w-[210px] h-[52px] rounded-[62px]">Shop Now</Button>
+              </Link>
               <div className="flex mt-[40px] gap-[40px]">
                 <div className="">
                   <h1 className="font-bold text-[40px]">200+</h1>
@@ -73,6 +79,7 @@ export default function Home() {
           <Getproducts/>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
